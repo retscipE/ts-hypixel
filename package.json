@@ -1,0 +1,24 @@
+{
+  "name": "ts-hypixel",
+  "version": "0.0.2",
+  "description": "A Hypixel API wrapper made in Typescript",
+  "main": "dist/index.js",
+  "scripts": {
+    "build:publish": "npm run build && npm publish",
+    "build": "npx tsc",
+    "test": "npx ts-node test/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fetch-json": "^3.1.1",
+    "ms": "^2.1.3",
+    "tslint": "^6.1.3",
+    "typescript": "^4.9.5"
+  },
+  "devDependencies": {
+    "@types/ms": "^0.7.31",
+    "ts-node": "^10.9.1"
+  }
+}
