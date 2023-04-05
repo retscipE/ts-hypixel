@@ -17,14 +17,19 @@ export class Hypixel {
         }
     }
 
-    public async getPlayer(username: string): Promise<IPlayer> {
+    public async getPlayer(identifier: string): Promise<IPlayer> {
         await this.keyErrorTest();
+        let uuid: string;
 
-        const data = await request(`https://api.mojang.com/users/profiles/minecraft/${username}`);
-        if (data.errorMessage) throw new Error("That username is invalid and cannot be translated into player data!")
-
-        const uuid = data.id
-            username = data.name;
+        if (identifier.includes("-") || identifier.length > 16) {
+            const data = await request(`https://sessionserver.mojang.com/session/minecraft/profile/${identifier}`);
+            if (data.errorMessage) throw new Error("That UUID is invalid and cannot be translated into player data!")
+            uuid = identifier;
+        } else {
+            const data = await request(`https://api.mojang.com/users/profiles/minecraft/${identifier}`);
+            if (data.errorMessage) throw new Error("That username is invalid and cannot be translated into player data!")
+            uuid = data.id;
+        }
 
         const playerReq = await request(`https://api.hypixel.net/player?key=${this.apikey}&uuid=${uuid}`);
         const guildReq = await request(`https://api.hypixel.net/guild?key=${this.apikey}&player=${uuid}`)
@@ -45,7 +50,7 @@ export class Hypixel {
 
         return {
             uuid,
-            username,
+            username: playerReq.player.displayname,
             rank: playerReq.player.newPackageRank ?? "None",
             online,
             socialMedia: playerReq.player.socialMedia.links ?? "None Linked",

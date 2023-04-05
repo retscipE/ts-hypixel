@@ -31,12 +31,7 @@ const hypixel = new Hypixel('YOUR API KEY')
 ```
 ---
 ## Current Upcoming Features
-```typescript
-await hypixel.getPlayer()
-// Both UUID & Username Support
 
-await hypixel.getFriendsOf()
-// Get the friends of a player (UUID & Username Support)
 ```
 
 ### If you wish to suggest any additional features for this package, head over to the GitHub Issues page and submit your idea.
